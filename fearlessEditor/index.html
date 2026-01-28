@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unit Image Editor</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- font: Orbitron -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+  <!-- font: Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<body>
+
+<div class="app">
+
+  <!-- 왼쪽: 설정 UI -->
+  <aside class="panel">
+    <h2>FEARLESS<br>유닛 이미지 편집기</h2>
+    <span class="something">비공식 팬메이드 페이지 입니다!!!<br>
+    유형 심볼 디자인은 피어리스 로고의 총, 심장, 빛에서 영감을 받았습니다.</span>
+
+    <div class="field">
+      <div class="field-label">유형 선택</div>
+      <div class="type-buttons" id="typeButtons">
+        <button type="button" data-type="sentinel">센티넬</button>
+        <button type="button" data-type="guide">가이드</button>
+        <button type="button" data-type="none">해당 없음</button>
+      </div>
+    </div>
+    
+    <div class="field">
+      <div class="field-label">소속</div>
+      <div class="affiliation-buttons" id="affiliationButtons">
+        <button type="button" data-affiliation="af-fearless">피어리스</button>
+        <button type="button" data-affiliation="af-villain">빌런</button>
+        <button type="button" data-affiliation="af-none">해당 없음</button>
+      </div>
+    </div>
+    
+
+    <label id="tagField">
+      태그
+      <input type="text" id="tagInput" value="FEARLESS">
+    </label>
+
+    <label>
+      이름
+      <span class="something">줄바꿈 가능.</span>
+      <textarea id="nameInput" rows="2">NAME</textarea>
+    </label>
+
+    <label>
+      대사
+      <textarea id="quoteInput" rows="3">“대사”</textarea>
+    </label>
+
+    <label>
+      등급
+      <input type="text" id="rankTextInput" value="?">
+    </label>
+
+    <label>
+      능력명
+      <span class="something">최대 2줄. 줄바꿈 가능.</span>
+      <textarea id="abilityInput">[None]</textarea>
+    </label>
+
+    <label>
+      소속
+      <span class="something">최대 2줄. 줄바꿈 가능.</span>
+      <textarea id="affiliationTextInput">Fearless HQ</textarea>
+    </label>
+
+    <label>
+      배경 색상
+      <input type="color" id="bgColorInput" value="#111111">
+    </label>
+
+    <label>
+      배경 이미지
+      <input type="file" id="bgImageInput" accept="image/*">
+    </label>
+
+    <label>
+      출력 해상도
+      <select id="resolutionSelect">
+        <option value="1">기본 (600×1100)</option>
+        <option value="2">고화질 (1200×2200)</option>
+      </select>
+    </label>
+
+    <button id="exportBtn" type="button">이미지 저장</button>
+  </aside>
+
+  <!-- 오른쪽: 미리보기 -->
+  <main class="preview">
+    <div class="preview-scale" id="previewScale">
+      <div class="card-wrap">
+        <div class="card">
+          <div class="card-bg"></div>
+
+          <!-- 카드 콘텐츠 레이어 -->
+          <div class="card-content">
+
+            <div class="tag js-tag">FEARLESS</div>
+
+            <img class="affiliation-icon" src="" alt="">
+
+            <div class="card-center">
+              <p class="quote js-quote">“대사”</p>
+              <h1 class="name font-orbitron js-name">NAME</h1>
+            </div>
+
+            <div class="card-footer">
+              <div class="ability">
+                <span class="label">ABILITY</span>
+                <span class="value js-ability">[None]</span>
+              </div>
+
+              <div class="rank font-orbitron">
+                <span class="rank-text js-rank">?</span>
+              </div>
+
+              <div class="affiliation">
+                <span class="label">AFFILIATION</span>
+                <span class="value js-affiliation">Fearless HQ</span>
+              </div>
+            </div>
+
+          </div><!-- /card-content -->
+        </div>
+
+        <img src="./src/frame-fearless.svg" class="card-frame" alt="">
+        <img class="rank-symbol" src="" alt="">
+      </div><!-- /card-wrap -->
+    </div>
+  </main>
+
+</div>
+
+<!-- 저장 전용 레이어 (화면에는 안 보임) -->
+<div id="exportLayer" class="export-layer">
+  <div class="card-wrap">
+    <div class="card">
+      <div class="card-bg"></div>
+
+      <div class="card-content">
+        <div class="tag js-tag">FEARLESS</div>
+
+        <img class="affiliation-icon" src="" alt="">
+
+        <div class="card-center">
+          <p class="quote js-quote">“대사”</p>
+          <h1 class="name font-orbitron js-name">NAME</h1>
+        </div>
+
+        <div class="card-footer">
+          <div class="ability">
+            <span class="label">ABILITY</span>
+            <span class="value js-ability">[None]</span>
+          </div>
+
+          <div class="rank font-orbitron">
+            <span class="rank-text js-rank">?</span>
+          </div>
+
+          <div class="affiliation">
+            <span class="label">AFFILIATION</span>
+            <span class="value js-affiliation">Fearless HQ</span>
+          </div>
+        </div>
+      </div><!-- /card-content -->
+    </div>
+
+    <img src="./src/frame-fearless.svg" class="card-frame" alt="">
+    <img class="rank-symbol" src="" alt="">
+  </div><!-- /card-wrap -->
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
