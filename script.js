@@ -44,6 +44,18 @@ const resolutionSelect = document.getElementById("resolutionSelect");
 /* =========================
    텍스트 동기화 (미리보기 + exportLayer 동시 반영)
 ========================= */
+
+function fitName(el) {
+  let fontSize = 110;
+  el.style.fontSize = fontSize + "px";
+
+  // 가로가 넘칠 때만 폰트 축소
+  while (el.scrollWidth > el.clientWidth && fontSize > 10) {
+    fontSize--;
+    el.style.fontSize = fontSize + "px";
+  }
+}
+
 function syncAllText() {
   setTextAll(".js-tag", CONFIG.showTagControl ? tagInput.value : CONFIG.fixedTagText);
   setTextAll(".js-name", nameInput.value);
@@ -52,16 +64,18 @@ function syncAllText() {
   setTextAll(".js-ability", abilityInput.value);
   setTextAll(".js-affiliation", affiliationTextInput.value);
 
-  const h1 = document.getElementById("dialogue");
+  document.querySelectorAll(".js-name").forEach(fitName);
 
-  let fontSize = 110;
-  h1.style.fontSize = fontSize + "px";
+  // const h1 = document.getElementById("dialogue");
 
-  // 가로가 넘칠 때만 폰트 축소
-  while (h1.scrollWidth > h1.clientWidth && fontSize > 10) {
-    fontSize--;
-    h1.style.fontSize = fontSize + "px";
-  }
+  // let fontSize = 110;
+  // h1.style.fontSize = fontSize + "px";
+
+  // // 가로가 넘칠 때만 폰트 축소
+  // while (h1.scrollWidth > h1.clientWidth && fontSize > 10) {
+  //   fontSize--;
+  //   h1.style.fontSize = fontSize + "px";
+  // }
 }
 
 /* 최초 1회 반영 */
