@@ -77,7 +77,6 @@ function syncAllText() {
   //   h1.style.fontSize = fontSize + "px";
   // }
 }
-
 /* 최초 1회 반영 */
 syncAllText();
 
@@ -326,6 +325,11 @@ exportBtn.addEventListener("click", async (e) => {
 
     await waitForImagesOnce(exportWrap);
     if (document.fonts?.ready) await document.fonts.ready;
+    // 폰트 로딩 완료 후, exportLayer의 NAME을 다시 fit
+    exportWrap.querySelectorAll(".js-name").forEach(fitName);
+    // 레이아웃 반영 1프레임 대기(안정성)
+    await new Promise(requestAnimationFrame);
+
 
 
     // 여기서 SVG들을 PNG로 “정해진 크기”로 라스터라이즈 후 임시 교체
