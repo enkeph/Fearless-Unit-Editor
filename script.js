@@ -51,6 +51,17 @@ function syncAllText() {
   setTextAll(".js-rank", rankTextInput.value);
   setTextAll(".js-ability", abilityInput.value);
   setTextAll(".js-affiliation", affiliationTextInput.value);
+
+  const h1 = document.getElementById("dialogue");
+
+  let fontSize = 110;
+  h1.style.fontSize = fontSize + "px";
+
+  // 가로가 넘칠 때만 폰트 축소
+  while (h1.scrollWidth > h1.clientWidth && fontSize > 10) {
+    fontSize--;
+    h1.style.fontSize = fontSize + "px";
+  }
 }
 
 /* 최초 1회 반영 */

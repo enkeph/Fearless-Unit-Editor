@@ -424,16 +424,18 @@ word-break: break-word;
 
 .name {
 margin: 0;
-font-size: 110px;
-line-height: 0.9em;
 text-shadow: 0 0 25px rgba(0,0,0,0.25);
 text-transform: uppercase;
 
 width: 100%;
+
 padding: 0 20px;
-white-space: pre-wrap;
-overflow-wrap: anywhere;   /* 공백 없는 긴 문자열도 줄바꿈 */
+white-space: pre;
+overflow-wrap: anywhere;   
 word-break: break-word;
+overflow: hidden;
+font-size: 110px;
+line-height: 0.95em;
 }
 
 /* 하단 영역 */
